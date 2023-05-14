@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE module PUBLIC "-//OpenMRS//DTD OpenMRS Config 1.0//EN" "http://resources.openmrs.org/doctype/config-1.2.dtd">
+
+<module configVersion="1.2">
+	
+    <!-- Base Module Properties -->
+    <id>@MODULE_ID@</id>
+    <name>@MODULE_NAME@</name>
+    <version>@MODULE_VERSION@</version>
+    <package>@MODULE_PACKAGE@</package>
+    <author>Rahul</author>
+    <description>
+        Provides core RahulEMR services
+    </description>
+    <activator>@MODULE_PACKAGE@.Activator</activator>
+
+    <updateURL>https://modules.rahul.org/modules/download/rahulcore/update.rdf</updateURL>
+    <!-- /Base Module Properties -->
+	
+    <require_version>${openMRSVersion}</require_version>
+    <require_modules>
+        <require_module>org.openmrs.module.webservices.rest</require_module>
+        <require_module>org.openmrs.module.fhir2</require_module>
+    </require_modules>
+    
+    <conditionalResources>
+        <conditionalResource>
+            <path>/lib/hapi-.*\.jar</path>
+            <loadIfModulesPresent>
+                <openmrsModule>
+                    <moduleId>fhir2</moduleId>
+                    <version>1.2.2</version>
+                </openmrsModule>
+            </loadIfModulesPresent>
+        </conditionalResource>
+        <conditionalResource>
+            <path>/lib/org\.hl7\.fhir\..*\.jar</path>
+            <loadIfModulesPresent>
+                <openmrsModule>
+                    <moduleId>fhir2</moduleId>
+                    <version>1.2.2</version>
+                </openmrsModule>
+            </loadIfModulesPresent>
+        </conditionalResource>
+    </conditionalResources>
+    <!-- Extensions -->
+	
+    <!-- AOP -->
+    <!-- Required Privileges -->
+    
+    <privilege>
+        <name>Add Patient Lists</name>
+        <description>Ability to create patient lists</description>
+    </privilege>
+    <privilege>
+        <name>Delete Patient Lists</name>
+        <description>Ability to delete patient lists</description>
+    </privilege>
+    <privilege>
+        <name>Edit Patient Lists</name>
+        <description>Ability to edit patient lists</description>
+    </privilege>
+    <privilege>
+        <name>View Patient Lists</name>
+        <description>Ability to view patient lists</description>
+    </privilege>
+
+    <privilege>
+        <name>Add Rahul Alerts</name>
+        <description>Ability to create rahul alerts</description>
+    </privilege>
+    <privilege>
+        <name>Delete Rahul Alerts</name>
+        <description>Ability to delete rahul alerts</description>
+    </privilege>
+    <privilege>
+        <name>Edit Rahul Alerts</name>
+        <description>Ability to edit rahul alerts</description>
+    </privilege>
+    <privilege>
+        <name>View Rahul Alerts</name>
+        <description>Ability to view rahul alerts</description>
+    </privilege>
+    
+    <privilege>
+        <name>Add Drug Groups</name>
+        <description>Ability to create Drug Groups</description>
+    </privilege>
+    <privilege>
+        <name>Delete Drug Groups</name>
+        <description>Ability to delete Drug Groups</description>
+    </privilege>
+    <privilege>
+        <name>Edit Drug Groups</name>
+        <description>Ability to edit Drug Groups</description>
+    </privilege>
+    <privilege>
+        <name>View Drug Groups</name>
+        <description>Ability to view Drug Groups</description>
+    </privilege>   
+    
+    <privilege>
+        <name>Add Drug Info</name>
+        <description>Ability to create Drug Info</description>
+    </privilege>
+    <privilege>
+        <name>Delete Drug Info</name>
+        <description>Ability to delete Drug Info</description>
+    </privilege>
+    <privilege>
+        <name>Edit Drug Info</name>
+        <description>Ability to edit Drug Info</description>
+    </privilege>
+    <privilege>
+        <name>View Drug Info</name>
+        <description>Ability to view Drug Info</description>
+    </privilege>   
+    
+    <!-- Required Global Properties -->
+    <!-- DWR -->
+    <!-- Servlets -->
+    <!-- Filters -->
+    <filter>
+      <filter-name>CorsFilter</filter-name>
+      <filter-class>org.rahul.module.rahulcore.CorsFilter</filter-class>
+    </filter>
+    <filter>
+      <filter-name>CustomErrorFilter</filter-name>
+      <filter-class>org.rahul.module.rahulcore.CustomErrorFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+          <filter-name>CorsFilter</filter-name>
+          <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    
+    <filter-mapping>
+          <filter-name>CustomErrorFilter</filter-name>
+          <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    
+    <!-- Internationalization -->
+    <!-- All message codes should start with moduleId.* -->
+    <messages>
+        <lang>en</lang>
+        <file>messages.properties</file>
+    </messages>
+
+    <!-- Hibernate files -->
+    <mappingFiles>
+        RahulcorePatientList.hbm.xml
+        RahulcoreRahulAlert.hbm.xml
+        RahulcoreDrugGroup.hbm.xml
+        RahulcoreDrugPurchaseOrder.hbm.xml
+        RahulcoreDrugInventory.hbm.xml
+        RahulcoreDrugInfo.hbm.xml
+        RahulcoreImage.hbm.xml
+        RahulcoreBilling.hbm.xml
+        RahulcoreBillingItem.hbm.xml
+        RahulcoreBillingItemAdjustment.hbm.xml     
+        RahulcorePatientStatus.hbm.xml
+        RahulcorePatientPersonStatus.hbm.xml
+        RahulcoreRahulSecurityGroup.hbm.xml
+        RahulcoreRahulMessage.hbm.xml
+        RahulcoreRahulSubFeed.hbm.xml
+        RahulcoreRahulFeed.hbm.xml
+        RahulcoreRahulCds.hbm.xml
+        ConceptReferenceMap.hbm.xml
+        Mlob.hbm.xml
+        RahulcoreMlserviceLog.hbm.xml
+        RahulcoreCdsCards.hbm.xml
+        RahulcoreRahulReport.hbm.xml
+        RahulSecurityGroupAttribute.hbm.xml
+        RahulSecurityGroupAttributeType.hbm.xml
+        RahulSecurityGroupFeed.hbm.xml
+        RahulPayment.hbm.xml
+        RahulPaymentOrder.hbm.xml
+        AppointmentBlockAmount.hbm.xml
+        PatientAuthenticationRequest.hbm.xml
+        AddContextRequest.hbm.xml
+        PatientTasks.hbm.xml
+        RahulcoreOtp.hbm.xml
+        CareContext.hbm.xml
+        PatientConsentArtefact.hbm.xml
+        PatientConsentRequest.hbm.xml
+        DataFlowRequest.hbm.xml
+        PatientConsentNotification.hbm.xml
+        DiscoverPatientRequest.hbm.xml
+        PatientInitiatedLinkRequest.hbm.xml
+        RahulcoreCondition.hbm.xml
+        RahulcoreDiagnosis.hbm.xml
+        PatientSubscriptionRequest.hbm.xml
+        PhrOidcLogin.hbm.xml
+        PhrEventLog.hbm.xml
+        PatientSubscriptionDataRequest.hbm.xml
+        AmazonUser.hbm.xml
+        AmazonPrescription.hbm.xml
+        AppointmentPatientSlot.hbm.xml
+        AbdmProfileToken.hbm.xml
+    </mappingFiles>
+</module>
